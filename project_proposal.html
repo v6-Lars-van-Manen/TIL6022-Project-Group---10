@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project proposal – Group 10</title>
+<style>
+body{font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;line-height:1.55;color:#1d1d1d;background:#fff}
+.cell{border-left:3px solid #e3e6ea;padding:4px 18px;margin:0 0 22px}
+h1{font-size:1.6em;margin:.6em 0 .4em} h2{font-size:1.3em} h3{font-size:1.1em;margin-top:1.3em}
+table{border-collapse:collapse;margin:12px 0} th,td{border:1px solid #c9ced4;padding:5px 12px} th{background:#f2f4f6}
+a{color:#1a5fb4;word-break:break-all}
+.eq{font-family:"Times New Roman",Georgia,serif;font-size:1.2em;text-align:center;margin:14px 0 4px}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 4px}
+.frac>span:first-child{border-bottom:1px solid currentColor;padding:0 4px 2px} .frac>span:last-child{padding-top:2px}
+@media print{.cell{border-left:0;padding-left:0}}
+</style></head><body>
+<div class="cell"><h1>Project Group 10 – Rail sabotage and road traffic on the A1</h1>
+<p><strong>Did the railway disruptions of 15 September 2026 change road traffic on the A1 between Amersfoort, Apeldoorn and Deventer?</strong></p>
+<p>Members: Lars van Manen, Jente van den Berg, Vigo Groenewold, Sipke de Jong, Jasper Steenvoorden</p>
+<p><em>TIL6022 TIL Python Programming – Project proposal</em></p></div><div class="cell"><h1>Motivation and introduction</h1>
+<p>The railway between Amersfoort, Apeldoorn and Deventer links the Randstad to the eastern Netherlands, and its services are regularly disrupted. On 15 September 2026 (Prinsjesdag), objects deliberately placed on the tracks at 35 or more locations disrupted train traffic in the centre and east of the country (NOS, 2026). The Amersfoort–Deventer corridor was hit as well: that evening, a new obstruction near Teuge halted trains between Apeldoorn and Deventer once more (NOS, 2026).</p>
+<p>When such a line fails, travellers switch to other routes, the bus or the car, or cancel their trip, which moves the pressure elsewhere in the transport network. The A1 motorway runs roughly parallel to this railway, making it the most likely road to absorb travellers who switch from train to car. This project uses observed road traffic data to investigate whether the rail disruptions of 15 September 2026 left a measurable trace in traffic intensity and vehicle speed on the A1.</p></div><div class="cell"><h1>Research objective</h1>
+<p><strong>Research question</strong></p>
+<p>To what extent did the railway disruptions on the Amersfoort–Apeldoorn–Deventer corridor on 15 September 2026 lead to measurable changes in road traffic intensity and average vehicle speed on the parallel A1 corridor?</p>
+<p><strong>Objectives</strong></p>
+<ul>
+<li>Construct a normal traffic profile for the A1 between Amersfoort and Deventer from historical NDW measurements.</li>
+<li>Quantify how traffic intensity and average speed on 15 September 2026 deviated from that profile, per location, direction and hour.</li>
+<li>Determine whether these deviations coincide in time and place with the rail disruptions.</li>
+</ul>
+<p>Further sabotage of the railway network cannot be ruled out. Understanding how the road network responds when a rail corridor fails helps road authorities such as Rijkswaterstaat prepare targeted measures for the A1 and for other corridors that are vulnerable to rail disruptions.</p></div><div class="cell"><h1>Contribution statement</h1>
+<p><em>Contributions up to and including the proposal (weeks 2 and 3).</em></p>
+<p><strong>Lars van Manen</strong>: motivation and introduction; setting up the Jupyter notebook and GitHub repository.</p>
+<p><strong>Jente van den Berg</strong>: searching for data sources; introduction and objectives.</p>
+<p><strong>Vigo Groenewold</strong>: describing and specifying the data pipeline.</p>
+<p><strong>Sipke de Jong</strong>: outline of the code structure; selecting measurement locations and time periods.</p>
+<p><strong>Jasper Steenvoorden</strong>: searching for data sources; checking and submitting the proposal.</p></div><div class="cell"><h1>Geographical and temporal scale</h1>
+<p><strong>Geographical scale.</strong> The A1 motorway between Amersfoort, Apeldoorn and Deventer, which runs parallel to the disrupted railway. NDW measurement locations are selected along this section, in both driving directions and at several points along the corridor.</p>
+<p><strong>Temporal scale.</strong> The disruption day, Tuesday 15 September 2026, analysed per hour. The baseline consists of all Tuesdays in the year before the disruption that fall outside Dutch school holidays.</p></div><div class="cell"><h1>Data used</h1>
+<h2>NDW Dexter</h2>
+<p><em>NDW Dexter</em> (n.d.): <a href="https://dexter.ndw.nu/opendata/overview">https://dexter.ndw.nu/opendata/overview</a></p>
+<p>The NDW (Nationaal Dataportaal Wegverkeer, or National Data Portal Road Traffic) makes mobility data trustworthy, accessible and useful. It does this together with governmental partners such as Rijkswaterstaat, the Dutch provinces and Dutch municipalities, and publishes many types of data through several applications. For this project, the Dexter application will be used as a data source.</p>
+<p>Dexter allows the user to select a timeframe of up to 366 days, the days of the week to include, and a specific measurement location. It then delivers a report containing the number of vehicles counted in every hour of the day and the average speed during every hour of the day. If multiple days are selected, the average over all selected days is given. An example of the data obtained from Dexter is shown in Table 1. Several locations will be studied to find out whether the train disruptions on 15 September had any effect on the measured variables.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Hour of the day</th>
+<th style="text-align: center;">Intensity (vehicles/hour)</th>
+<th style="text-align: center;">Average speed (km/h)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">00:00 – 00:59</td>
+<td style="text-align: center;">39.9</td>
+<td style="text-align: center;">93</td>
+</tr>
+<tr>
+<td style="text-align: center;">01:00 – 01:59</td>
+<td style="text-align: center;">50.9</td>
+<td style="text-align: center;">91</td>
+</tr>
+<tr>
+<td style="text-align: center;">02:00 – 02:59</td>
+<td style="text-align: center;">50.7</td>
+<td style="text-align: center;">92</td>
+</tr>
+</tbody>
+</table>
+<p><em>Table 1: Average intensity and speed per hour from 2025-09-01 to 2025-09-30 on weekdays, for measurement location 0151hrl0263ra (RWS01_MONIBAS_0151hrl0263ra), exported from Dexter.</em></p></div><div class="cell"><h1>Data pipeline</h1>
+<p>The data analysis pipeline will be used to determine whether the railway disruption on 15 September 2026 resulted in measurable changes in road traffic along the A1 corridor between Amersfoort, Apeldoorn and Deventer. Historical traffic measurements from NDW Dexter will be used to compare the disruption day with normal traffic conditions.</p>
+<h3>1. Data collection</h3>
+<p>Traffic data will be collected from several NDW measurement locations along the A1 between Amersfoort, Apeldoorn and Deventer. Where possible, measurement points in both driving directions and at multiple locations along the corridor will be included.</p>
+<p>For each measurement point, the main variables are:</p>
+<ul>
+<li>traffic intensity in vehicles per hour;</li>
+<li>average vehicle speed in km/h;</li>
+<li>measurement location and direction;</li>
+<li>time of day.</li>
+</ul>
+<p>The disruption day, Tuesday 15 September 2026, will be analysed separately. To construct a representative baseline, the reference dataset will consist of all Tuesdays during the year preceding the disruption that fall outside Dutch school holiday periods. Tuesdays are selected because traffic patterns vary systematically between weekdays, while excluding school holidays reduces differences caused by unusual travel demand.</p>
+<h3>2. Data cleaning and pre-processing</h3>
+<p>The NDW datasets will be imported into Python and converted into a consistent format. Measurements from the different locations and dates will be combined into one dataset containing location, direction, date, time, traffic intensity and average speed.</p>
+<p>Missing or technically unreliable measurements will be identified and removed where necessary. The reference data will then be filtered so that only eligible Tuesdays outside school holidays remain. Measurements will be aggregated into consistent hourly time intervals, allowing the disruption day and the baseline to be compared directly.</p>
+<h3>3. Baseline construction</h3>
+<p>For each measurement location, direction and hour of the day, the traffic measurements of all selected reference Tuesdays will be combined to create a normal traffic profile.</p>
+<p>The mean traffic intensity and mean vehicle speed will be calculated for each hourly interval. This produces an expected value for a normal Tuesday, for example the average traffic intensity between 08:00 and 09:00 across all eligible Tuesdays in the previous year.</p>
+<p>Using a full year of comparable Tuesdays rather than a single reference day reduces the influence of normal day-to-day variation and provides a more stable baseline.</p>
+<h3>4. Comparative analysis</h3>
+<p>Traffic conditions on 15 September 2026 will be compared with the baseline for the same location, direction and hour. For traffic intensity, both the absolute and the relative difference will be calculated:</p>
+<div class="eq">&Delta;<i>I</i> = <i>I</i><sub>disruption</sub> &minus; <i>I</i><sub>baseline</sub></div>
+<p><em>Formula 1: absolute difference in traffic intensity</em></p>
+<div class="eq">%&Delta;<i>I</i> = <span class="frac"><span><i>I</i><sub>disruption</sub> &minus; <i>I</i><sub>baseline</sub></span><span><i>I</i><sub>baseline</sub></span></span> &times; 100</div>
+<p><em>Formula 2: relative difference in traffic intensity</em></p>
+<p>The same calculations will be performed for average vehicle speed.</p>
+<p>A higher-than-normal traffic intensity may indicate additional road demand during the rail disruption, while a decrease in average speed may indicate additional congestion. Both variables will therefore be analysed together.</p>
+<h3>5. Spatial and temporal analysis</h3>
+<p>The calculated differences will be compared across locations and throughout the day. This makes it possible to investigate both when abnormal traffic conditions occurred and where along the corridor the largest deviations were observed.</p>
+<p>Particular attention will be given to the time periods in which rail services were disrupted. Comparing several measurement locations also allows the analysis to determine whether changes were limited to specific sections of the A1 or occurred throughout the corridor.</p>
+<h3>6. Visualization and interpretation</h3>
+<p>The results will be visualized using:</p>
+<ul>
+<li>time-series plots comparing the disruption day with the normal Tuesday baseline;</li>
+<li>plots of the percentage change in traffic intensity and average speed;</li>
+<li>comparisons between different measurement locations and directions;</li>
+<li>where useful, a geographical visualization showing the magnitude of the observed changes along the corridor.</li>
+</ul>
+<p>These visualizations will be used to assess whether road traffic on 15 September differed systematically from typical Tuesday traffic and whether these differences coincide with the railway disruption.</p></div><div class="cell"><h1>References</h1>
+<p>NDW. (n.d.). <em>Dexter open data</em>. Nationaal Dataportaal Wegverkeer. <a href="https://dexter.ndw.nu/opendata/overview">https://dexter.ndw.nu/opendata/overview</a></p>
+<p>NOS. (2026, September 15). <em>Branden in de berm en tientallen sabotageacties op het spoor: een overzicht van de dag</em>. <a href="https://nos.nl/artikel/2631176-branden-in-de-berm-en-tientallen-sabotageacties-op-het-spoor-een-overzicht-van-de-dag">https://nos.nl/artikel/2631176-branden-in-de-berm-en-tientallen-sabotageacties-op-het-spoor-een-overzicht-van-de-dag</a></p></div>
+</body></html>
